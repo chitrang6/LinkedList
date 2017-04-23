@@ -56,7 +56,7 @@ node* push(node* headRef, int key)
 
 // Funtion to Create a linked list.
 
-node* CreateList(node* headRef, int* key, int num)
+node* CreateList(node* headRef, int* key,  int num)
 {
 
 	for(int i = 0 ; i < num; i++)
@@ -68,6 +68,8 @@ node* CreateList(node* headRef, int* key, int num)
 
 }
 
+
+// This is the print function for the linked list.
 
 void printList(node* headRef)
 {
@@ -85,6 +87,86 @@ void printList(node* headRef)
 
 
 
+// Delete a node in the linked list.
+
+
+node* deleteNode(node* headRef, int position)
+{
+	
+	if(position == 1)
+	{
+		node* temp = headRef;
+		headRef = temp->next;
+		delete temp;
+
+	}
+
+	else
+	{
+		node* cur = headRef;
+		for(int i = 0 ; i < position-2; i++)
+		{
+			cur = cur->next;
+		}
+		node* temp = cur->next;
+		cur->next = temp->next;
+		delete temp;
+
+	}
+
+	return headRef;
+}
+
+
+
+// Reverse a linked list 
+
+
+// head -> 10 -> 15 -> 20 -> NULL
+
+node* reverse_iterative(node* headRef)
+{
+
+	node* prev = NULL;
+	node* next_node;
+	node* current = headRef;
+	while(current != NULL)
+	{
+		next_node = current->next;
+		current->next = prev;
+		prev = current;
+		current = next_node;
+	}
+
+	headRef = prev;
+	return headRef;
+}
+
+/*
+
+// Reverse a linedlist using recursion.
+
+node* reverseRecursion(node* headRef)
+{
+
+
+
+	if(headRef->next == NULL)
+	{
+		return headRef;
+	}
+
+	headRef = reverseRecursion(headRef);
+
+	node* q = headRef->next;
+	q->next = headRef;
+	headRef->next = NULL;
+
+}
+
+*/
+
+
 int main()
 {
 
@@ -93,13 +175,20 @@ int main()
 	// So every method we will write will going to return the head pointer to update the head pointer.
 
 
-	int data[10] = {1, 4,53, 32, 423, 42, 42,673, 63, -13};
-
-
+	int data[10] = {12 , 21 , 2 , 23 ,234  , 123  , 234 , 23 , 1234 , 124};
 	head = CreateList(head, data, 10);
 	printList(head);
 
+	head = deleteNode(head , 6);
+
+	printList(head);
+
+	head = reverse_iterative(head);
+
+	printList(head);
+
 }
+
 
 
 
